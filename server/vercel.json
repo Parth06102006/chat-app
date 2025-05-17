@@ -14,7 +14,7 @@
     "routes":[
         {
             "src":"/(.*)",
-            "use":"./dist/server.js" 
+            "dest":"./dist/server.js" 
         }
     ]
 }
