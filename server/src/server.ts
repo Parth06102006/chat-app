@@ -15,7 +15,7 @@ const server = http.createServer(app)
 //Initialize socket.io server
 export const io = new Server(server, {
   cors: {
-    origin: "http://localhost:5173", // or your frontend origin
+    origin: process.env.FRONTEND_URL, // or your frontend origin
     credentials: true,
   },
 });
