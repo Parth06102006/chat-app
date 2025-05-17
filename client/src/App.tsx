@@ -12,7 +12,7 @@ const App = () => {
     console.log('CHANGED...',authUser)
   },[authUser])
   return (
-    <div className="bg-[url('./src/assets/bgImage.svg')] bg-cover">
+    <div className="bg-[url('./bgImage.svg')] bg-cover">
       <Toaster/>
       <Routes>
         <Route path="/" element={authUser ? <HomePage/>:<Navigate to="/login"/>}/>

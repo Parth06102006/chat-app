@@ -53,6 +53,12 @@ app.use('/api/messages',messageRouter)
 
 const PORT = process.env.PORT || 5000 ;
 
-dbConnect().then(()=>{server.listen(PORT,()=>console.log(`Server is running on port: ${PORT}`))}).catch(()=>{console.log('Error connecting to the Database')})
+dbConnect().then(()=>{
+  if(process.env.NODE_ENV !== 'production'){
+    server.listen(PORT,()=>console.log(`Server is running on port: ${PORT}`))}
+  })
+  .catch(()=>{console.log('Error connecting to the Database')})
 //@ts-ignore
 app.use(errorHandler)
+
+export default server
