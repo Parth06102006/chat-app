@@ -10,7 +10,7 @@ const SideBar = () => {
     const navigate = useNavigate()
     const [input,setInput] = useState(false)
     const {logout,onlineUsers} = useContext(AuthContext)
-    const filteredUsers = input ? users.filter((user)=>user.fullName.toLowerCase().includes(input.toLowerCase())) : users
+    const filteredUsers = input ? users.filter((user)=>user.fullname.toLowerCase().includes(input.toLowerCase())) : users
 
     useEffect(()=>{getUsers();
         console.log('Online',onlineUsers)

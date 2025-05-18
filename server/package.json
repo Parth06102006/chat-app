@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server/dist/server.js",
-    "dev": "tsc -b && nodemon server/dist/server.js",
+    "start": "node ./dist/server.js",
+    "dev": "tsc -b && nodemon ./dist/server.js",
     "vercel-build":"tsc"
   },
   "keywords": [],
