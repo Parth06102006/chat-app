@@ -1,4 +1,4 @@
-import React, { useContext,useEffect } from 'react'
+import { useContext,useEffect } from 'react'
 import { Routes,Route, Navigate } from 'react-router-dom'
 import HomePage from './pages/HomePage'
 import LoginPage from './pages/LoginPage'
@@ -7,7 +7,11 @@ import {Toaster} from 'react-hot-toast'
 import { AuthContext } from './contexts/AuthContext'
 
 const App = () => {
-  const  {authUser} = useContext(AuthContext)
+  const auth = useContext(AuthContext)
+  if(!auth) {
+      throw new Error('AuthContext not found')
+  }
+  const  {authUser} = auth
   useEffect(()=>{
     console.log('CHANGED...',authUser)
   },[authUser])

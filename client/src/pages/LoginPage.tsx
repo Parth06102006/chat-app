@@ -9,9 +9,13 @@ const LoginPage = () => {
     const [password,setPassword] = useState<string>('')
     const [bio,setBio] = useState<string>('')
     const [isDataSubmitted,setIsDataSubmitted] = useState<boolean>(false);
-    const {login} = useContext(AuthContext)
+    const auth = useContext(AuthContext)
+    if(!auth) {
+        throw new Error('AuthContext not found')
+    }
+    const {login} = auth
     
-    const onSubmitHandler = (event) =>{
+    const onSubmitHandler = (event:React.FormEvent<HTMLFormElement>) =>{
         event.preventDefault();
         if(currentState ==='SignUp' && !isDataSubmitted)
             {
