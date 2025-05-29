@@ -9,12 +9,16 @@ interface MessageType {
   text: string;
   timestamp?: string;
   seen?: boolean;
+  image?:string;
+  createdAt?:string;
 }
 
-interface UserType {
+export interface UserType {
   _id: string;
-  name: string;
+  fullname: string;
   email?: string;
+  bio?: string;
+  profilePic?: string; 
 }
 
 interface UnseenMessagesType {

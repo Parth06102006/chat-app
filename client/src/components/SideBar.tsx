@@ -6,11 +6,28 @@ import { ChatContext } from '../contexts/ChatContext'
 
 
 const SideBar = () => {
-    const {getUsers,users,selectedUser,setSelectedUser,unseenMessages,setUnseenMessages} = useContext(ChatContext)
+    const chat = useContext(ChatContext)
     const navigate = useNavigate()
-    const [input,setInput] = useState(false)
-    const {logout,onlineUsers} = useContext(AuthContext)
-    const filteredUsers = input ? users.filter((user)=>user.fullname.toLowerCase().includes(input.toLowerCase())) : users
+    const [input,setInput] = useState<string | boolean>(false)
+    const auth = useContext(AuthContext)
+    if(!chat)
+    {
+        throw new Error('No chat context found')
+    }
+    if(!auth)
+    {
+        throw new Error('No auth context found')
+    }
+    const {
+        getUsers,
+        users,
+        selectedUser,
+        setSelectedUser,
+        unseenMessages,
+        setUnseenMessages
+    } = chat
+    const {logout,onlineUsers} = auth
+    const filteredUsers = input && typeof input==='string' ? users.filter((user)=>user.fullname.toLowerCase().includes(input.toLowerCase())) : users
 
     useEffect(()=>{getUsers();
         console.log('Online',onlineUsers)
@@ -44,7 +61,7 @@ const SideBar = () => {
                 className={`relative flex items-center gap-2 p-2 pl-4 rounded-3xl cursor-pointer max-sm:text-sm border mt-2 border-gray-700/30 ${selectedUser?._id === user._id && 'bg-[#282142]/50'}`}>
                 <img src={user?.profilePic || assets.avatar_icon} alt="" className='w-[35px] aspect-[1/1] rounded-full' />
                 <div className='flex flex-col leading-5'>
-                    <p>{user.fullname}</p>
+                    <p>{user?.fullname}</p>
                     {
                         //static data
                         onlineUsers.includes(user._id) ? <span className='text-green-400 text-xs'>Online</span> : <span className='text-neutral-400 text-xs'>Offline</span>

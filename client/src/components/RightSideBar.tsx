@@ -4,13 +4,24 @@ import { ChatContext } from '../contexts/ChatContext'
 import { AuthContext } from '../contexts/AuthContext'
 
 const RightSideBar = () => {
-    const {selectedUser,messages} = useContext(ChatContext)
-    const {logout,onlineUsers} = useContext(AuthContext)
-    const [msgImage,setMsgImage] = useState([])
+    const chat = useContext(ChatContext)
+    const auth = useContext(AuthContext)
+
+    if(!chat)
+    {
+        throw new Error('No chat context found')
+    }
+    if(!auth)
+    {
+        throw new Error('No auth context found')
+    }
+    const {selectedUser,messages} = chat
+    const {logout,onlineUsers} = auth
+    const [msgImage,setMsgImage] = useState<string[]>([])
 
     //Get all the images from the messages and set them to state
     useEffect(()=>{
-        setMsgImage(messages.filter(msg=>msg.image).map(msg=>msg.image))
+        setMsgImage(messages.filter(msg=>msg.image !== undefined).map(msg=>msg.image as string))
     },[messages])
 
   return selectedUser && (
